@@ -2,10 +2,10 @@ try:
     from setuptools import setup
     
     
-except ImportError
+except ImportError:
     from distutils.core import setup
 
-config = [
+config = {
             'description':'Transport and Cargo logistics Management Suite', 
             'author': 'Chibuzor Ogbu',
             'url': 'http://www.byteworksng.com',
@@ -13,10 +13,10 @@ config = [
             'author_email': 'chibuzorogbu@gmail.com',
             'version': '0.Alpha.1',
             'install_requires': ['nose'],
-            'packages': ['tackle'],
+            'packages': ['tackle', 'kivy'],
             'scripts': [],
             'name': 'Tackle'
-         ]   
+}
 
 setup(**config)
         

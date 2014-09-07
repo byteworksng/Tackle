@@ -1,3 +1,291 @@
 #: kivy 1.8.0
+#: import ListAdapter kivy.adapters.listadapter.ListAdapter
+#: import main main
 
-<LoginLayout>
+
+
+<TackleRoot>:
+    loginForm: loginForm
+    #transport: transport
+    #courier: courier
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            texture: self.texture
+
+    #TransportScreen:
+        #id: transport
+    LoginScreen:
+        id: loginForm
+    #CourierScreen:
+       # id: courier
+
+
+
+
+
+<LoginScreen>:
+    id: login
+    uname: uname
+    password: password
+    message: message
+    orientation: "vertical"
+    spacing: 0
+    BoxLayout:
+        orientation: "horizontal"
+        canvas.before:
+            Color:
+                rgb: 0.2, .4, .4
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Image:
+            source: "icons/tackle_256x94.png"
+    BoxLayout:
+        orientation: "vertical"
+        padding: [0, "50dp", 0 , 0]
+
+        height: "60dp"
+        size_hint_y: None
+        Label:
+            text: "[color=f1f1f1]Login below with your [b]Company ID[/b] or [b]User Id[/b] as provided by Tackle Online or contact your system administrator:[/color]"
+            font_size: "12sp"
+            markup: True
+            text_size: (300, None)
+
+    BoxLayout:
+        #padding: [0, "70dp", 0, 0]
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint: (1, 1)
+        GridLayout:
+            pos_hint: {"top": .3}
+            rows: 3
+            cols: 2
+            spacing: "10dp"
+            size_hint_x: None
+            width: "300dp"
+            row_force_default: True
+            row_default_height: "35dp"
+
+            Label:
+                text: "User Name"
+                width: "100dp"
+                size_hint_x: None
+
+            FormInput:
+                id: uname
+                font_size: "16sp"
+                height: "30dp"
+                size_hint_y: None
+                multiline: False
+                next: password
+            Label:
+                text: "Password"
+                width: "100dp"
+                size_hint_x: None
+
+            FormInput:
+                id: password
+
+                font_size: "16sp"
+                height: "30dp"
+                background_color: [.8, .8, .8, 1]
+                password: True
+                multiline: False
+                size_hint_y: None
+                next:login
+
+        BoxLayout:
+            orientation: "horizontal"
+    FloatLayout:
+        size_hint_y: None
+        height: "3dp"
+        padding: (0, 200, 0, 0)
+        Label:
+            id: message
+            font_size: "12sp"
+            pos_hint: {"center_x": .5, "y": -15}
+
+            color: (.1, .6, .8)
+    BoxLayout:
+        orientation: "horizontal"
+        BoxLayout:
+            size_hint: (1, 1)
+        GridLayout:
+            id: logs
+            pos_hint: {"top": .6}
+            cols: 2
+            width: "300dp"
+            size_hint_x: None
+            row_force_default: True
+            row_default_height: "40dp"
+
+            Button:
+                text: "Login"
+                background_color: [0.2, .75, .8, 1]
+                size_hint_y: None
+                on_press: root.login()
+
+            Button:
+                text: "Forgot password?"
+                background_color: [0.1, 0, 0.1, .4]
+                size_hint_y: None
+        BoxLayout:
+    BoxLayout:
+        orientation: "horizontal"
+
+        height: "50dp"
+        size_hint_y: None
+
+        Label:
+            text: """This software is Licensed by ©2014 ByteWorks NG ltd . The Tackle® name and logo are a registered trademark of ByteWorks® NG."""
+            font_size: "10sp"
+            text_size: (300, None)
+            halign: "center"
+
+
+<TransportScreen>:
+    navi: navi
+    orientation: "vertical"
+    Menu:
+        id: menu
+        canvas.before:
+            Color:
+                rgb: 0.2, .4, .4
+            Rectangle:
+                pos: self.pos
+                size: self.size
+    BoxLayout:
+        orientation: "horizontal"
+        Navigation:
+            ListView:
+                width: "183dp"
+                size_hint_x: None
+                id: navi
+                adapter:
+                    ListAdapter(data=[], cls=main.NavigationButton)
+
+        FormArea:
+            Label:
+                text: "Work Area"
+        InfoBox:
+            Label:
+                text: "Info Box"
+
+    BoxLayout:
+        orientation: "horizontal"
+        size_hint_y: None
+        height: "30dp"
+        canvas.before:
+            Color:
+                rgb: 0.2, .4, .4
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "Last"
+
+<NavigationButton>:
+    #text: "{}".format(root.nav)
+    height: "55dp"
+    width: "183dp"
+    deselected_color: (.1, .4, .4, .4)
+    size_hint_y: None
+    size_hint_x: None
+
+<Menu>:
+    orientation: "horizontal"
+    size_hint_y: None
+    height: "40dp"
+
+    AnchorLayout:
+        anchor_x: "right"
+        anchor_y: "top"
+        size_hint_x: None
+        width: "180dp"
+        padding: ["70dp","70dp"]
+        Image:
+            source: "icons/tackle_202x74.png"
+    MenuAnchor:
+        MenuButton:
+            text: "Manifest"
+            state: "down"
+            on_press: root.update_navigation()
+        MenuButton:
+            text: "Ticket"
+            state: "normal"
+        MenuButton:
+            text: "Journals"
+            state: "normal"
+        MenuButton:
+            text: "Report"
+            state: "normal"
+
+    AnchorLayout:
+        anchor_x: "right"
+        anchor_y: "top"
+        size_hint: (None, None)
+        height: "40dp"
+        width: "65dp"
+
+        Button:
+
+            background_normal: 'icons/bold/015.png'
+            background_down: 'icons/bold/014.png'
+            font_name: "fonts/OpenSans-Bold.ttf"
+            size_hint_x: None
+            width: "40dp"
+
+
+    AnchorLayout:
+        canvas.before:
+            Color:
+                rgba: (0.1, 0, .1,.4)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        anchor_x: "right"
+        anchor_y: "top"
+        size_hint_x: None
+        width: "60dp"
+
+        ToggleButton:
+
+            padding: ("20dp","14dp")
+            text: "Mode"
+            group: "switch"
+            background_normal: 'icons/bold/003.png'
+            background_down: 'icons/bold/002.png'
+            halign: "center"
+            valign: "bottom"
+            font_size: "9sp"
+            text_size: [self.width,None]
+            #background_color: 0.1, 0, .1, .4
+            font_name: "fonts/OpenSans-Bold.ttf"
+            size_hint_x: None
+            width: "50dp"
+
+
+
+<MenuAnchor@BoxLayout>:
+
+
+<MenuButton@ToggleButton>:
+    text_size: [self.width,None]
+    halign: "center"
+    valign: "middle"
+    background_color: 0.1, 0, .1, .4
+    size_hint_x: None
+    width: "100dp"
+    group: "menu"
+
+
+<Navigation@BoxLayout>:
+    orientation: "vertical"
+<FormArea@BoxLayout>:
+    orientation: "vertical"
+<InfoBox@BoxLayout>:
+    orientation: "vertical"
